@@ -11,17 +11,17 @@ namespace PaginaPessoal2.Controllers
 {
     public class ExperienciasController : Controller
     {
-        private readonly PaginaPessoalDBContext _context;
+        private readonly PaginaPessoalDBContext bd;
 
         public ExperienciasController(PaginaPessoalDBContext context)
         {
-            _context = context;
+            bd = context;
         }
 
         // GET: Experiencias
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Experiencia.ToListAsync());
+            return View(await bd.Experiencia.ToListAsync());
         }
 
         // GET: Experiencias/Details/5
@@ -32,7 +32,7 @@ namespace PaginaPessoal2.Controllers
                 return NotFound();
             }
 
-            var experiencia = await _context.Experiencia
+            var experiencia = await bd.Experiencia
                 .FirstOrDefaultAsync(m => m.ExperienciaId == id);
             if (experiencia == null)
             {
@@ -57,8 +57,8 @@ namespace PaginaPessoal2.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(experiencia);
-                await _context.SaveChangesAsync();
+                bd.Add(experiencia);
+                await bd.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(experiencia);
@@ -72,7 +72,7 @@ namespace PaginaPessoal2.Controllers
                 return NotFound();
             }
 
-            var experiencia = await _context.Experiencia.FindAsync(id);
+            var experiencia = await bd.Experiencia.FindAsync(id);
             if (experiencia == null)
             {
                 return NotFound();
@@ -96,8 +96,8 @@ namespace PaginaPessoal2.Controllers
             {
                 try
                 {
-                    _context.Update(experiencia);
-                    await _context.SaveChangesAsync();
+                    bd.Update(experiencia);
+                    await bd.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -123,7 +123,7 @@ namespace PaginaPessoal2.Controllers
                 return NotFound();
             }
 
-            var experiencia = await _context.Experiencia
+            var experiencia = await bd.Experiencia
                 .FirstOrDefaultAsync(m => m.ExperienciaId == id);
             if (experiencia == null)
             {
@@ -138,15 +138,15 @@ namespace PaginaPessoal2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var experiencia = await _context.Experiencia.FindAsync(id);
-            _context.Experiencia.Remove(experiencia);
-            await _context.SaveChangesAsync();
+            var experiencia = await bd.Experiencia.FindAsync(id);
+            bd.Experiencia.Remove(experiencia);
+            await bd.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ExperienciaExists(int id)
         {
-            return _context.Experiencia.Any(e => e.ExperienciaId == id);
+            return bd.Experiencia.Any(e => e.ExperienciaId == id);
         }
     }
 }

@@ -54,9 +54,9 @@
                                 @Html.DisplayFor(modelItem => item.Cargo)
                             </td>
                             <td>
-                                <a asp-action="Edit" asp-route-id="@item.ExperienciaId">Edit</a> |
-                                <a asp-action="Details" asp-route-id="@item.ExperienciaId">Details</a> |
-                                <a asp-action="Delete" asp-route-id="@item.ExperienciaId">Delete</a>
+                                <a asp-action="Edit" asp-route-id="@item.ExperienciaId" class="btn btn-warning">Editar</a> |
+                                <a asp-action="Details" asp-route-id="@item.ExperienciaId" class="btn btn-info">Detalhes</a> |
+                                <a asp-action="Delete" asp-route-id="@item.ExperienciaId" class="btn btn-danger">Eliminar</a>
                             </td>
                         </tr>
                     }
