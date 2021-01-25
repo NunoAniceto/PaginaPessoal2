@@ -59,9 +59,14 @@ namespace PaginaPessoal2.Controllers
             {
                 bd.Add(experiencia);
                 await bd.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                ViewBag.Mensagem = "Experiência adicionada com sucesso.";
+                return View("Sucesso");
             }
             return View(experiencia);
+            
+
+
         }
 
         // GET: Experiencias/Edit/5
@@ -110,9 +115,12 @@ namespace PaginaPessoal2.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                ViewBag.Mensagem = "Experiência alterada com sucesso";
+                return View("Sucesso");
             }
             return View(experiencia);
+
         }
 
         // GET: Experiencias/Delete/5

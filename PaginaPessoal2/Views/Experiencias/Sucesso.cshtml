@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewData["Title"] = "Sucesso";
+}
+
+<header class="masthead text-center p-5">
+    <div class="masthead-content">
+        <div class="container">
+            <h1 class="display-4 p-5 mb-0">Sucesso</h1>
+        </div>
+    </div>
+
+</header>
+
+
+<section>
+    <div class="container p-5">
+
+        <article>
+            <div class="card text-white bg-success mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">@ViewBag.Title</h5>
+                    <p class="card-text">@ViewBag.Mensagem</p>
+
+                    <div>
+                        <a class="btn btn-primary" asp-action="Index">
+                            Ver lista de Experiências
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </article>
+
+    </div>
+
+</section>
