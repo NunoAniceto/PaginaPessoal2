@@ -19,9 +19,29 @@ namespace PaginaPessoal2.Controllers
         }
 
         // GET: Experiencias
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string nomePesquisar, int pagina = 1)
         {
-            return View(await bd.Experiencia.ToListAsync());
+            Paginacao paginacao = new Paginacao
+            {
+                TotalItems = await bd.Experiencia.Where(e => nomePesquisar == null || e.Empresa.Contains(nomePesquisar)).CountAsync(),
+                PaginaAtual = pagina
+            };
+
+            List<Experiencia> experiencias = await bd.Experiencia.Where(e => nomePesquisar == null || e.Empresa.Contains(nomePesquisar))
+ 
+                .OrderBy(a => a.Ano)
+                .Skip(paginacao.ItemsPorPagina * (pagina - 1))
+                .Take(paginacao.ItemsPorPagina)
+                .ToListAsync();
+
+            ListaExperienciaViewModel modelo = new ListaExperienciaViewModel
+            {
+                Paginacao = paginacao,
+                Experiencias = experiencias,
+                NomePesquisar = nomePesquisar
+            };
+
+            return base.View(modelo);
         }
 
         // GET: Experiencias/Details/5
