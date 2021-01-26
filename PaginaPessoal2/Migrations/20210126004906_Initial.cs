@@ -2,7 +2,7 @@
 
 namespace PaginaPessoal2.Migrations
 {
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,9 +12,9 @@ namespace PaginaPessoal2.Migrations
                 {
                     ExperienciaId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Ano = table.Column<string>(nullable: true),
-                    Empresa = table.Column<string>(nullable: true),
-                    Cargo = table.Column<string>(nullable: true)
+                    Ano = table.Column<string>(nullable: false),
+                    Empresa = table.Column<string>(nullable: false),
+                    Cargo = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {

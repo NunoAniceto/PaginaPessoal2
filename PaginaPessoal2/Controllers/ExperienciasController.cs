@@ -36,7 +36,7 @@ namespace PaginaPessoal2.Controllers
                 .FirstOrDefaultAsync(m => m.ExperienciaId == id);
             if (experiencia == null)
             {
-                return NotFound();
+                return View("Inexistente");
             }
 
             return View(experiencia);
@@ -80,7 +80,7 @@ namespace PaginaPessoal2.Controllers
             var experiencia = await bd.Experiencia.FindAsync(id);
             if (experiencia == null)
             {
-                return NotFound();
+                return View("Inexistente");
             }
             return View(experiencia);
         }
@@ -135,7 +135,8 @@ namespace PaginaPessoal2.Controllers
                 .FirstOrDefaultAsync(m => m.ExperienciaId == id);
             if (experiencia == null)
             {
-                return NotFound();
+                ViewBag.Mensagem = "A Experiência que estava a tentar apagar foi eliminado por outra pessoa.";
+                return View("Sucesso");
             }
 
             return View(experiencia);
@@ -149,7 +150,8 @@ namespace PaginaPessoal2.Controllers
             var experiencia = await bd.Experiencia.FindAsync(id);
             bd.Experiencia.Remove(experiencia);
             await bd.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            ViewBag.Mensagem = "A Experiência foi eliminada com sucesso";
+            return View("Sucesso");
         }
 
         private bool ExperienciaExists(int id)
