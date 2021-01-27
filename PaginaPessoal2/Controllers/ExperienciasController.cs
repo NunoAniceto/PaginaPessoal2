@@ -28,8 +28,7 @@ namespace PaginaPessoal2.Controllers
             };
 
             List<Experiencia> experiencias = await bd.Experiencia.Where(e => nomePesquisar == null || e.Empresa.Contains(nomePesquisar))
- 
-                .OrderBy(a => a.Ano)
+                .OrderBy(a => a.ExperienciaId)
                 .Skip(paginacao.ItemsPorPagina * (pagina - 1))
                 .Take(paginacao.ItemsPorPagina)
                 .ToListAsync();
@@ -128,11 +127,12 @@ namespace PaginaPessoal2.Controllers
                 {
                     if (!ExperienciaExists(experiencia.ExperienciaId))
                     {
-                        return NotFound();
+                        return View("EliminarInserir", experiencia);
                     }
                     else
                     {
-                        throw;
+                        ModelState.AddModelError("", "Ocorreu um erro. Não foi possível guardar o produto. Tente novamente e se o problema persistir contacte a assistência.");
+                        return View(experiencia);
                     }
                 }
                 //return RedirectToAction(nameof(Index));
