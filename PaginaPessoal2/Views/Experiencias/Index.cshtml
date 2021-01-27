@@ -40,7 +40,7 @@
 
             @if (Model.Experiencias.Count() == 0)
             {
-                <p>Não existem produtos para mostrar.</p> }
+                <p>Não existe Experiência para mostrar.</p> }
             else
             {
 
@@ -88,14 +88,14 @@
                 <nav>
                     <ul class="pagination">
                         @{ int paginaInicial = Model.Paginacao.PaginaAtual - Paginacao.NUMERO_PAGINAS_MOSTRAR_ANTES_DEPOIS;
-                            //int paginaInicial = Model.Paginacao.PaginaAtual - Paginacao.NUMERO_PAGINAS_MOSTRAR_ANTES_DEPOIS / 2;
+                            
                             if (paginaInicial < 1)
                             {
                                 paginaInicial = 1;
                             }
 
                             int paginaFinal = Model.Paginacao.PaginaAtual + Paginacao.NUMERO_PAGINAS_MOSTRAR_ANTES_DEPOIS;
-                            //int paginaFinal = paginaInicial + Paginacao.NUMERO_PAGINAS_MOSTRAR_ANTES_DEPOIS - 1;
+                            
                             if (paginaFinal > Model.Paginacao.TotalPaginas)
                             {
                                 paginaFinal = Model.Paginacao.TotalPaginas;
