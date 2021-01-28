@@ -15,4 +15,6 @@ using PaginaPessoal2.Models;
         public DbSet<PaginaPessoal2.Models.Experiencia> Experiencia { get; set; }
 
         public DbSet<PaginaPessoal2.Models.Habilitacoes> Habilitacoes { get; set; }
+
+        public DbSet<PaginaPessoal2.Models.Utilizador> Utilizador { get; set; }
     }
