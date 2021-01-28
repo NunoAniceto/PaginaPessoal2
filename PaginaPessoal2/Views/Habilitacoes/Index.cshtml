@@ -4,44 +4,65 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<header class="masthead text-center p-5">
+    <div class="masthead-content">
+        <div class="container">
+            <h1 class="display-4 p-5 mb-0">Nuno Aniceto</h1>
+            <h2 class="display-3 p-0 mb-0">Habilitações</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Ano)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Curso)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Instituicao)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ano)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Curso)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Instituicao)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.HabilitacoesId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.HabilitacoesId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.HabilitacoesId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+        </div>
+    </div>
+
+</header>
+
+<section>
+    <div class="container p-5">
+
+        <article>
+
+            <p>
+                <a asp-action="Create" class="btn btn-success">Novas Habilitações</a>
+            </p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Ano)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Curso)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Instituicao)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Ano)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Curso)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Instituicao)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.HabilitacoesId">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@item.HabilitacoesId">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@item.HabilitacoesId">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </article>
+
+    </div>
+
+</section>

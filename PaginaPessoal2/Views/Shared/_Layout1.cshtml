@@ -42,20 +42,23 @@
                     @*<li class="nav-item"><a class="nav-link" href="interesses.html">Interesses</a></li>*@
 
                 </ul>
+                <partial name="_LoginPartial" />
             </div>
         </div>
     </nav>
-
+    <header class="masthead text-center p-3">
+    </header>
 
 
     <section>
-        <div class="container mb-2">
+        <div class="container p-5">
+            <article>
 
 
-            @RenderBody()
+                @RenderBody()
 
 
-
+            </article>
         </div>
     </section>
 

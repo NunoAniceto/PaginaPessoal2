@@ -31,8 +31,27 @@ namespace PaginaPessoal2
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddIdentity<IdentityUser, IdentityRole>(options => {
+                // Sign in
+                options.SignIn.RequireConfirmedAccount = false;
+
+                // Password
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequiredLength = 8;
+                options.Password.RequiredUniqueChars = 6;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+
+                // Lockout
+                options.Lockout.AllowedForNewUsers = true;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+            })
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultUI();
+
 
             services.AddDbContext<PaginaPessoalDBContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("PaginaPessoalDBContext")));
@@ -41,7 +60,9 @@ namespace PaginaPessoal2
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
-            PaginaPessoalDBContext bd)
+            PaginaPessoalDBContext bd,
+            UserManager<IdentityUser> gestorUtilizadores,
+            RoleManager<IdentityRole> gestorRoles)
         {
             if (env.IsDevelopment())
             {
@@ -70,9 +91,13 @@ namespace PaginaPessoal2
                 endpoints.MapRazorPages();
             });
 
+            SeedData.InsereRolesAsync(gestorRoles).Wait();
+            SeedData.InsereAdministradorPadraoAsync(gestorUtilizadores).Wait();
+
             if (env.IsDevelopment())
             {
                 SeedData.PreencheDadosExperienciaficticia(bd);
+                SeedData.InsereUtilizadoresFicticiosAsync(gestorUtilizadores).Wait();
             }
         }
     }
