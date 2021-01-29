@@ -44,9 +44,12 @@
             else
             {
 
-                <p>
-                    <a asp-action="Create" class="btn btn-success">Nova Experiência</a>
-                </p>
+            <p>
+            @if (User.IsInRole("Administrador"))
+            {
+                <a asp-action="Create" class="btn btn-success">Nova Experiência</a>
+            }
+            </p>
                 <table class="table">
                     <thead>
                         <tr>
@@ -76,9 +79,12 @@
                                     @Html.DisplayFor(modelItem => experiencia.Cargo)
                                 </td>
                                 <td>
-                                    <a asp-action="Edit" asp-route-id="@experiencia.ExperienciaId" class="btn btn-warning">Editar</a> |
-                                    <a asp-action="Details" asp-route-id="@experiencia.ExperienciaId" class="btn btn-info">Detalhes</a> |
-                                    <a asp-action="Delete" asp-route-id="@experiencia.ExperienciaId" class="btn btn-danger">Eliminar</a>
+                                    @if (User.IsInRole("Administrador"))
+                                    {
+                                        <a asp-action="Edit" asp-route-id="@experiencia.ExperienciaId" class="btn btn-warning">Editar</a>
+                                        <a asp-action="Details" asp-route-id="@experiencia.ExperienciaId" class="btn btn-info">Detalhes</a>
+                                        <a asp-action="Delete" asp-route-id="@experiencia.ExperienciaId" class="btn btn-danger">Eliminar</a>
+                                    }
                                 </td>
                             </tr>
                         }
@@ -88,14 +94,14 @@
                 <nav>
                     <ul class="pagination">
                         @{ int paginaInicial = Model.Paginacao.PaginaAtual - Paginacao.NUMERO_PAGINAS_MOSTRAR_ANTES_DEPOIS;
-                            
+
                             if (paginaInicial < 1)
                             {
                                 paginaInicial = 1;
                             }
 
                             int paginaFinal = Model.Paginacao.PaginaAtual + Paginacao.NUMERO_PAGINAS_MOSTRAR_ANTES_DEPOIS;
-                            
+
                             if (paginaFinal > Model.Paginacao.TotalPaginas)
                             {
                                 paginaFinal = Model.Paginacao.TotalPaginas;

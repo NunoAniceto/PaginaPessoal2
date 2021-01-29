@@ -22,7 +22,10 @@
         <article>
 
             <p>
-                <a asp-action="Create" class="btn btn-success">Novas Habilitações</a>
+                @if (User.IsInRole("Administrador"))
+                {
+                    <a asp-action="Create" class="btn btn-success">Novas Habilitações</a>
+                }
             </p>
             <table class="table">
                 <thead>
@@ -53,9 +56,12 @@
                                 @Html.DisplayFor(modelItem => item.Instituicao)
                             </td>
                             <td>
-                                <a asp-action="Edit" asp-route-id="@item.HabilitacoesId">Edit</a> |
-                                <a asp-action="Details" asp-route-id="@item.HabilitacoesId">Details</a> |
-                                <a asp-action="Delete" asp-route-id="@item.HabilitacoesId">Delete</a>
+                                @if (User.IsInRole("Administrador"))
+                                {
+                                    <a asp-action="Edit" asp-route-id="@item.HabilitacoesId" class="btn btn-warning">Editar</a>
+                                    <a asp-action="Details" asp-route-id="@item.HabilitacoesId" class="btn btn-info">Detalhes</a>
+                                    <a asp-action="Delete" asp-route-id="@item.HabilitacoesId" class="btn btn-danger">Eliminar</a>
+                                }
                             </td>
                         </tr>
                     }

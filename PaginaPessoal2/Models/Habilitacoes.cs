@@ -18,6 +18,7 @@ namespace PaginaPessoal2.Models
         public string Curso { get; set; }
 
         [Required(ErrorMessage = "Deve preencher a Instituição.")]
+        [Display(Name = "Instituição")]
         public string Instituicao { get; set; }
     }
 }
