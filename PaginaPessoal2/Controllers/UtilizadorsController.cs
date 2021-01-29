@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -22,26 +23,43 @@ namespace PaginaPessoal2.Controllers
         }
 
         // GET: Utilizadors
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Utilizador.ToListAsync());
         }
 
         // GET: Utilizadors/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
+            Utilizador utilizador;
+
+            if (id != null)
             {
                 return NotFound();
             }
 
-            var utilizador = await _context.Utilizador
-                .FirstOrDefaultAsync(m => m.UtilizadorId == id);
+            utilizador = await _context.Utilizador.FirstOrDefaultAsync(u => u.UtilizadorId == id);
+
             if (utilizador == null)
             {
                 return NotFound();
             }
+            else {
+                if (!User.IsInRole("Utilizador"))
+                {
+                    return NotFound();
+                }
 
+                utilizador = await _context.Utilizador.SingleOrDefaultAsync(u => u.Email == User.Identity.Name);
+
+
+                if (id == null)
+                {
+                    return NotFound();
+                }
+            }
             return View(utilizador);
         }
 

@@ -96,7 +96,7 @@ namespace PaginaPessoal2
 
             if (env.IsDevelopment())
             {
-                SeedData.PreencheDadosExperienciaficticia(bd);
+                SeedData.PreencheDadosficticios(bd);
                 SeedData.InsereUtilizadoresFicticiosAsync(gestorUtilizadores).Wait();
             }
         }

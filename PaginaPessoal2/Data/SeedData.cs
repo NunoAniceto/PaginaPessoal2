@@ -16,9 +16,10 @@ namespace PaginaPessoal2.Data
         private const string ROLE_ADIMINISTRADOR = "Administrador";
         private const string ROLE_UTILIZADOR = "Utilizador";
         
-        internal static void PreencheDadosExperienciaficticia(PaginaPessoalDBContext bd)
+        internal static void PreencheDadosficticios(PaginaPessoalDBContext bd)
         {
             InsereExperienciaficticia(bd);
+            Inserehabilitacoesficticia(bd);
         }
 
         private static void InsereExperienciaficticia(PaginaPessoalDBContext bd)
@@ -51,6 +52,31 @@ namespace PaginaPessoal2.Data
 
             bd.SaveChanges();
         }
+
+        private static void Inserehabilitacoesficticia(PaginaPessoalDBContext bd)
+        {
+            if (bd.Habilitacoes.Any()) return;
+
+            bd.Habilitacoes.AddRange(new Habilitacoes[] {
+                new Habilitacoes
+                {
+                    Ano = "1994",
+                    Curso = "12º ano Técnico-Profissional de Contabilidade e Administração",
+                    Instituicao = "E.S.S.João do Estoril",
+
+                },
+                new Habilitacoes
+                {
+                    Ano = "2002",
+                    Curso = "Bacharelato Engenharia Informática",
+                    Instituicao = " Instituto Politácnio da Guarda",
+
+                }
+            });
+
+            bd.SaveChanges();
+        }
+
 
 
         internal static async Task InsereUtilizadoresFicticiosAsync(UserManager<IdentityUser> gestorUtilizadores)
