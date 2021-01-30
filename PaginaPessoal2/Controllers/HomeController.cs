@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PaginaPessoal2.Models;
@@ -18,6 +19,7 @@ namespace PaginaPessoal2.Controllers
             _logger = logger;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             return View();
@@ -27,7 +29,7 @@ namespace PaginaPessoal2.Controllers
         {
             return View();
         }
-
+        [Authorize]
         public IActionResult DadosPessoais()
         {
             return View();

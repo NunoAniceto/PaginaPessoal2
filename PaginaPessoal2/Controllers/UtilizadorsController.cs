@@ -35,31 +35,33 @@ namespace PaginaPessoal2.Controllers
         {
             Utilizador utilizador;
 
-            if (id != null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            utilizador = await _context.Utilizador.FirstOrDefaultAsync(u => u.UtilizadorId == id);
+            utilizador = await _context.Utilizador.SingleOrDefaultAsync(c => c.UtilizadorId == id);
 
             if (utilizador == null)
             {
                 return NotFound();
             }
-            else {
-                if (!User.IsInRole("Utilizador"))
-                {
-                    return NotFound();
-                }
+            //else
+            //{
+            //    if (!User.IsInRole("Utilizador"))
+            //    {
+            //        return NotFound();
+            //    }
 
-                utilizador = await _context.Utilizador.SingleOrDefaultAsync(u => u.Email == User.Identity.Name);
+            //    utilizador = await _context.Utilizador.SingleOrDefaultAsync(c => c.Email == User.Identity.Name);
 
+            //    if (utilizador == null)
+            //    {
+            //        // todo: Enviar para uma página a explicar o problema
+            //        return NotFound();
+            //    }
+            //}
 
-                if (id == null)
-                {
-                    return NotFound();
-                }
-            }
             return View(utilizador);
         }
 
@@ -108,7 +110,7 @@ namespace PaginaPessoal2.Controllers
             _context.Add(novoutilizador);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Details));
+            return RedirectToAction("Index","Home");
         }
 
         // GET: Utilizadors/Edit/5
