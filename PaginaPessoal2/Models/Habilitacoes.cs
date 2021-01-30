@@ -20,5 +20,7 @@ namespace PaginaPessoal2.Models
         [Required(ErrorMessage = "Deve preencher a Instituição.")]
         [Display(Name = "Instituição")]
         public string Instituicao { get; set; }
+
+        public byte[] Foto { get; set; }
     }
 }

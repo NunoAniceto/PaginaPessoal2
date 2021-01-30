@@ -61,7 +61,8 @@ namespace PaginaPessoal2.Controllers
             {
                 bd.Add(habilitacoes);
                 await bd.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                ViewBag.Mensagem = "Habilitação adicionada com sucesso.";
+                return View("Sucesso");
             }
             return View(habilitacoes);
         }
@@ -105,14 +106,16 @@ namespace PaginaPessoal2.Controllers
                 {
                     if (!HabilitacoesExists(habilitacoes.HabilitacoesId))
                     {
-                        return NotFound();
+                        return View("EliminarInserir", habilitacoes);
                     }
                     else
                     {
-                        throw;
+                        ModelState.AddModelError("", "Ocorreu um erro. Não foi possível guardar a habilitação. Tente novamente e se o problema persistir contacte a assistência.");
+                        return View(habilitacoes);
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                ViewBag.Mensagem = "Habilitação alterada com sucesso";
+                return View("Sucesso");
             }
             return View(habilitacoes);
         }
@@ -129,7 +132,8 @@ namespace PaginaPessoal2.Controllers
                 .FirstOrDefaultAsync(m => m.HabilitacoesId == id);
             if (habilitacoes == null)
             {
-                return NotFound();
+                ViewBag.Mensagem = "A Habilitação que estava a tentar apagar foi eliminado por outra pessoa.";
+                return View("Sucesso");
             }
 
             return View(habilitacoes);
@@ -143,7 +147,8 @@ namespace PaginaPessoal2.Controllers
             var habilitacoes = await bd.Habilitacoes.FindAsync(id);
             bd.Habilitacoes.Remove(habilitacoes);
             await bd.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            ViewBag.Mensagem = "A Habilitação foi eliminada com sucesso";
+            return View("Sucesso");
         }
 
         private bool HabilitacoesExists(int id)
