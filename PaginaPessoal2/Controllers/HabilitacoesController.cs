@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -55,16 +57,32 @@ namespace PaginaPessoal2.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("HabilitacoesId,Ano,Curso,Instituicao")] Habilitacoes habilitacoes)
+        public async Task<IActionResult> Create([Bind("HabilitacoesId,Ano,Curso,Instituicao")] Habilitacoes habilitacoes, IFormFile ficheiroFoto)
         {
             if (ModelState.IsValid)
             {
+
+                AtualizaFotohabilitacoes(habilitacoes, ficheiroFoto);
                 bd.Add(habilitacoes);
                 await bd.SaveChangesAsync();
                 ViewBag.Mensagem = "Habilitação adicionada com sucesso.";
                 return View("Sucesso");
+
+
             }
             return View(habilitacoes);
+        }
+
+        private static void AtualizaFotohabilitacoes(Habilitacoes habilitacoes, IFormFile ficheiroFoto)
+        {
+            if (ficheiroFoto != null && ficheiroFoto.Length > 0)
+            {
+                using (var ficheiroMemoria = new MemoryStream())
+                {
+                    ficheiroFoto.CopyTo(ficheiroMemoria);
+                    habilitacoes.Foto = ficheiroMemoria.ToArray();
+                }
+            }
         }
 
         // GET: Habilitacoes/Edit/5
@@ -88,7 +106,7 @@ namespace PaginaPessoal2.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("HabilitacoesId,Ano,Curso,Instituicao")] Habilitacoes habilitacoes)
+        public async Task<IActionResult> Edit(int id, [Bind("HabilitacoesId,Ano,Curso,Instituicao,Foto")] Habilitacoes habilitacoes, IFormFile ficheiroFoto)
         {
             if (id != habilitacoes.HabilitacoesId)
             {
@@ -99,6 +117,7 @@ namespace PaginaPessoal2.Controllers
             {
                 try
                 {
+                    AtualizaFotohabilitacoes(habilitacoes, ficheiroFoto);
                     bd.Update(habilitacoes);
                     await bd.SaveChangesAsync();
                 }

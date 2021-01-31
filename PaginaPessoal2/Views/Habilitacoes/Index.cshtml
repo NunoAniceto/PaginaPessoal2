@@ -31,6 +31,9 @@
                 <thead>
                     <tr>
                         <th>
+                            Fotografia
+                        </th>
+                        <th>
                             @Html.DisplayNameFor(model => model.Ano)
                         </th>
                         <th>
@@ -45,25 +48,31 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Ano)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Curso)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Instituicao)
-                            </td>
-                            <td>
-                                @if (User.IsInRole("Administrador"))
-                                {
-                                    <a asp-action="Edit" asp-route-id="@item.HabilitacoesId" class="btn btn-warning">Editar</a>
-                                    <a asp-action="Details" asp-route-id="@item.HabilitacoesId" class="btn btn-info">Detalhes</a>
-                                    <a asp-action="Delete" asp-route-id="@item.HabilitacoesId" class="btn btn-danger">Eliminar</a>
-                                }
-                            </td>
-                        </tr>
+                    <tr>
+                        <td style="width:100px;" >
+                            @if (item.Foto != null)
+                            {
+                                <img src="data:image/jpeg;base64, @Convert.ToBase64String(item.Foto)" class="img-fluid" />
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ano)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Curso)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Instituicao)
+                        </td>
+                        <td style="width:1px; white-space:nowrap;">
+                            @if (User.IsInRole("Administrador"))
+                            {
+                                <a asp-action="Edit" asp-route-id="@item.HabilitacoesId" class="btn btn-warning">Editar</a>
+                                <a asp-action="Details" asp-route-id="@item.HabilitacoesId" class="btn btn-info">Detalhes</a>
+                                <a asp-action="Delete" asp-route-id="@item.HabilitacoesId" class="btn btn-danger">Eliminar</a>
+                            }
+                        </td>
+                    </tr>
                     }
                 </tbody>
             </table>

@@ -61,15 +61,15 @@ namespace PaginaPessoal2.Data
                 new Habilitacoes
                 {
                     Ano = "1994",
-                    Curso = "12º ano Técnico-Profissional de Contabilidade e Administração",
+                    Curso = "12º ano Téc-Prof de Contabilidade e Administração",
                     Instituicao = "E.S.S.João do Estoril",
 
                 },
                 new Habilitacoes
                 {
                     Ano = "2002",
-                    Curso = "Bacharelato Engenharia Informática",
-                    Instituicao = " Instituto Politácnio da Guarda",
+                    Curso = "Bach Engenharia Informática",
+                    Instituicao = " Inst. Politécnio da Guarda",
 
                 }
             });
