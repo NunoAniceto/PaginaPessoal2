@@ -30,7 +30,7 @@ namespace PaginaPessoal2.Controllers
             };
 
             List<Experiencia> experiencias = await bd.Experiencia.Where(e => nomePesquisar == null || e.Empresa.Contains(nomePesquisar))
-                .OrderBy(a => a.ExperienciaId)
+                //.OrderBy(a => a.ExperienciaId)
                 .Skip(paginacao.ItemsPorPagina * (pagina - 1))
                 .Take(paginacao.ItemsPorPagina)
                 .ToListAsync();

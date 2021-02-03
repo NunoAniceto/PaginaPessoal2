@@ -25,7 +25,9 @@ namespace PaginaPessoal2.Controllers
         // GET: Habilitacoes
         public async Task<IActionResult> Index()
         {
-            return View(await bd.Habilitacoes.ToListAsync());
+            return View(await bd.Habilitacoes
+                .OrderByDescending(h=>h.Ano)
+                .ToListAsync());
         }
 
         // GET: Habilitacoes/Details/5

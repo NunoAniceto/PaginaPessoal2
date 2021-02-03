@@ -47,6 +47,34 @@ namespace PaginaPessoal2.Data
                     Empresa = "NA Cobranças",
                     Cargo = "Responsável de cobranças",
 
+                },
+                new Experiencia
+                {
+                    Ano = "2012/2013",
+                    Empresa = "CIT Ireland",
+                    Cargo = "Analista de Crédito e cobranças",
+
+                },
+                new Experiencia
+                {
+                    Ano = "2011",
+                    Empresa = "Waves & Winds",
+                    Cargo = "Supervisor de Telemarketing",
+
+                },
+                new Experiencia
+                {
+                    Ano = "2007/2010",
+                    Empresa = "BT Ireland",
+                    Cargo = "Reporting Analyst",
+
+                },
+                new Experiencia
+                {
+                    Ano = "2002/2007",
+                    Empresa = "GE Money",
+                    Cargo = "Analista de Cobranças",
+
                 }
             });
 
@@ -58,18 +86,19 @@ namespace PaginaPessoal2.Data
             if (bd.Habilitacoes.Any()) return;
 
             bd.Habilitacoes.AddRange(new Habilitacoes[] {
-                new Habilitacoes
-                {
-                    Ano = "1994",
-                    Curso = "12º ano Téc-Prof de Contabilidade e Administração",
-                    Instituicao = "E.S.S.João do Estoril",
 
-                },
                 new Habilitacoes
                 {
                     Ano = "2002",
                     Curso = "Bach Engenharia Informática",
                     Instituicao = " Inst. Politécnio da Guarda",
+
+                },
+                new Habilitacoes
+                {
+                    Ano = "1994",
+                    Curso = "12º ano Téc-Prof de Contabilidade e Administração",
+                    Instituicao = "E.S.S.João do Estoril",
 
                 }
             });
